@@ -1,0 +1,23 @@
+.footer-container {
+	padding: 10px 30px 10px 30px;
+}
+
+.footer-divider {
+	border: 1px solid #D7D5D5;
+}
+
+.footer-content {
+	padding-top: 10px;
+}
+
+.footer-content a {
+	margin-right: 25px;
+	color: #D7D5D5;
+	text-decoration: none;
+}
+
+.footer-content a:hover {
+	margin-right: 25px;
+	color: #a9a9a9;
+	text-decoration: none;
+}

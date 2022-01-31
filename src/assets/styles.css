@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@200;400&display=swap');
+
+html, body, #root {
+	font-family: 'Raleway', sans-serif;
+    background-color: #FFF;
+	font-feature-settings: 'pnum' on, 'lnum' on;
+}
+
+.web-container {
+	background-color: #FAFAFA;
+}
+
+.cursor-pointer {
+	cursor: pointer;
+}

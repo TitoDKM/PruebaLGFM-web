@@ -1,0 +1,42 @@
+.post-list-container {
+	padding: 15px;
+	padding-left: 30px;
+	background-color: #FAFAFA;
+	height: 100;
+}
+
+.post-list-container h4:after {
+	content: '';
+    border-bottom: 2px solid #D7D5D5;
+    width: 45px;
+    display: block;
+    margin-left: 1px;
+}
+
+.card-title-share {
+	margin-left: auto;
+}
+
+.card-title-sub {
+	font-size: 13px;
+}
+
+.card-body.brown {
+	border-bottom: 3px solid burlywood;
+}
+
+.card-body.blue {
+	border-bottom: 3px solid dodgerblue;
+}
+
+.card-text {
+	display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-img-top {
+	height: 155px;
+}

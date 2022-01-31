@@ -1,0 +1,90 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+.header {
+	background-color: #fff;
+}
+
+.header-navbar {
+	padding: 15px;
+	padding-left: 30px;
+	background-color: #fff;
+}
+
+.navbar-brand > img {
+	height: 50px;
+}
+
+.header-search {
+	margin-top: -15px;
+	margin-left: auto;
+}
+
+.search-input {
+	border: 1px solid #efefef;
+	border-radius: 5px;
+	padding: 10px 30px 10px 10px;
+	width: 250px;
+}
+
+.search-icon {
+	position: relative;
+    left: 88%;
+    bottom: 30px;
+    width: 30px;
+    height: 15px;
+    display: block;
+}
+
+.user-photo {
+	height: 40px;
+    margin-top: -10px;
+}
+
+.header-menu {
+	width: 100%;
+	border: 1px solid #ECECEC;
+    border-right: none;
+    border-left: none;
+	padding-left: 30px;
+}
+
+.header-menu-container {
+	background-color: #FFF;
+}
+
+.btn-cats {
+	background-color: #43a6eb;
+	color: #fff;
+}
+
+.btn-cats.dropdown-toggle {
+	background-color: #2e91d5;
+}
+
+.header-navbar-items {
+	margin-left: 30px;
+	height: 40px;
+    line-height: 40px;
+}
+
+.header-navbar-items .nav-item {
+	margin-left: 15px;
+	border-left: 1px solid #ECECEC;
+	padding-left: 10px;
+	position: relative;
+}
+
+.nav-item.selected:after {
+	position: absolute;
+    content: '';
+    border-bottom: 1px solid #43a6eb;
+    width: 70%;
+    transform: translateX(-50%);
+    bottom: 0;
+    left: 45%;
+}
+
+.newpost-btn {
+	background-color: #5fbb6c;
+	color: #fff;
+}
