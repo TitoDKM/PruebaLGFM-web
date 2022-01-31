@@ -1,21 +1,27 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Folder } from "react-bootstrap-icons";
 import { useNavigate, useParams } from "react-router-dom";
+import { appContext } from "../..";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import Share from "../../components/Share/Share";
+import { SET_CATEGORY } from "../../reducers/AppReducer";
 import { getPost } from "../../services/postsService";
 
 import './post.css';
 
 const Post = () => {
+	const { state, dispatch } = useContext(appContext);
 	const params = useParams();
 	const [post, setPost] = useState({});
 	let navigate = useNavigate();
 
 	useEffect(() => {
 		getPost(params.id)
-		.then(response => setPost(response.data))
+		.then(response => {
+			setPost(response.data);
+			dispatch({type: SET_CATEGORY, category: response.data.category_id});
+		})
 		.catch(error => console.log(error));
 	}, []);
 	

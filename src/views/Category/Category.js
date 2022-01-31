@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import { ThreeDots } from "react-bootstrap-icons";
 import { useNavigate, useParams } from "react-router-dom";
@@ -6,8 +6,11 @@ import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import { getCat } from "../../services/catsService";
 import { getPosts } from "../../services/postsService";
+import { appContext } from "../../";
+import { SET_CATEGORY } from "../../reducers/AppReducer";
 
 const Category = () => {
+	const { state, dispatch }  = useContext(appContext);
 	const [posts, setPosts] = useState([]);
 	const [categoryData, setCategoryData] = useState({});
 	const params = useParams();
@@ -21,6 +24,8 @@ const Category = () => {
 		getCat(params.id)
 		.then(response => setCategoryData(response.data))
 		.catch(error => console.log(error));
+
+		dispatch({type: SET_CATEGORY, category: params.id});
 	}, [params.id]);
 
 	const parseDate = (date) => {

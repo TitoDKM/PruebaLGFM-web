@@ -1,14 +1,17 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import { ThreeDots } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
+import { appContext } from "../..";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
+import { SET_CATEGORY } from "../../reducers/AppReducer";
 import { getPosts } from "../../services/postsService";
 
 import './home.css';
 
 const Home = () => {
+	const { state, dispatch } = useContext(appContext);
 	const [posts, setPosts] = useState([]);
 	let navigate = useNavigate();
 
@@ -16,6 +19,8 @@ const Home = () => {
 		getPosts(0, 25, 0)
 		.then(response => setPosts(response.data.posts))
 		.catch(error => console.log(error));
+
+		dispatch({type: SET_CATEGORY, category: 0});
 	}, []);
 
 	const parseDate = (date) => {

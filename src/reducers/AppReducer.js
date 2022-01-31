@@ -2,6 +2,7 @@ export const LOGIN = 'LOGIN';
 export const LOAD_CATS = 'LOAD_CATS';
 export const TOKEN = 'TOKEN';
 export const LOGOUT = 'LOGOUT';
+export const SET_CATEGORY = 'SET_CATEGORY';
 
 const loginData = localStorage.getItem("loginData") ? JSON.parse(localStorage.getItem("loginData")) : "";
 
@@ -9,7 +10,8 @@ export const INITIAL_STATE = {
 	login_data: loginData !== "" ? loginData : null,
 	logged: loginData !== "" ? true : false,
 	token: loginData !== "" ? loginData.token : "",
-	loading: false
+	loading: false,
+	current_category: 0
 }
 
 export const AppReducer = (state, action) => {
@@ -35,6 +37,11 @@ export const AppReducer = (state, action) => {
 				...state,
 				logged: false,
 				token: ''
+			}
+		case SET_CATEGORY:
+			return {
+				...state,
+				current_category: action.category
 			}
 		default:
 			return state;

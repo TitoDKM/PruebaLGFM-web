@@ -11,7 +11,6 @@ import './header.css';
 const Header = () => {
 	const {state, dispatch} = useContext(appContext);
 	const [cats, setCats] = useState([]);
-	const [currentCat, setCurrentCat] = useState(1);
 	let navigate = useNavigate();
 
 	useEffect(() => {
@@ -51,7 +50,7 @@ const Header = () => {
 						</SplitButton>
 					</InputGroup>
 					<ul className="navbar-nav header-navbar-items">
-						{cats.length > 0 ? cats.filter(cat => cat.featured).map(cat => <li key={cat.id} className={"nav-item cursor-pointer" + (cat.id === currentCat ? ' selected' : '')} onClick={() => navigate("/category/" + cat.id, {replace: true})}>{cat.title}</li>) : <li className="nav-item">Aún no hay categorías</li>}
+						{cats.length > 0 ? cats.filter(cat => cat.featured).map(cat => <li key={cat.id} className={"nav-item cursor-pointer" + (cat.id == state.current_category ? ' selected' : '')} onClick={() => navigate("/category/" + cat.id, {replace: true})}>{cat.title}</li>) : <li className="nav-item">Aún no hay categorías</li>}
 					</ul>
 					<ul className="navbar-nav ms-auto">
 						<Button variant="none" className="newpost-btn"><PlusLg /></Button>
