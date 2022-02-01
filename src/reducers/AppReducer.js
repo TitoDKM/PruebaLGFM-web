@@ -3,6 +3,8 @@ export const LOAD_CATS = 'LOAD_CATS';
 export const TOKEN = 'TOKEN';
 export const LOGOUT = 'LOGOUT';
 export const SET_CATEGORY = 'SET_CATEGORY';
+export const ERROR = 'ERROR';
+export const REGISTER = 'REGISTER';
 
 const loginData = localStorage.getItem("loginData") ? JSON.parse(localStorage.getItem("loginData")) : "";
 
@@ -24,12 +26,13 @@ export const AppReducer = (state, action) => {
 			}
 		case LOAD_CATS:
 			return {
-				...state,
-				loading: true
+				...state
 			}
 		case TOKEN:
 			return {
 				...state,
+				loading: false,
+				logged: true,
 				token: action.token
 			}
 		case LOGOUT:
@@ -38,10 +41,20 @@ export const AppReducer = (state, action) => {
 				logged: false,
 				token: ''
 			}
+		case ERROR:
+			return {
+				...state,
+				loading: false
+			}
 		case SET_CATEGORY:
 			return {
 				...state,
 				current_category: action.category
+			}
+		case REGISTER:
+			return {
+				...state,
+				loading: true
 			}
 		default:
 			return state;

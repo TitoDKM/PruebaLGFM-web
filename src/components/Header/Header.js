@@ -3,7 +3,7 @@ import { Container, NavDropdown, Dropdown, InputGroup, SplitButton, Button } fro
 import { Plus, PlusLg, Search } from 'react-bootstrap-icons';
 import { useNavigate } from "react-router-dom";
 import { appContext } from "../..";
-import { LOAD_CATS } from "../../reducers/AppReducer";
+import { LOAD_CATS, LOGOUT } from "../../reducers/AppReducer";
 import { getCats } from "../../services/catsService";
 
 import './header.css';
@@ -23,6 +23,12 @@ const Header = () => {
 		.catch(error => console.log(error));
 	}, []);
 
+	const logout = () => {
+		localStorage.removeItem("loginData");
+		dispatch({type: LOGOUT});
+		navigate("/", {replace: true});
+	}
+
 	return (
 		<>
 			<Container className="header-navbar" fluid>
@@ -37,8 +43,17 @@ const Header = () => {
 							<img src="/default.jpeg" alt="profilePhoto" className="user-photo" height={25} />
 						</div>
 					}>
-						<Dropdown.Item href="/profile">Perfil</Dropdown.Item>
-						<Dropdown.Item href="/profile">Salir</Dropdown.Item>
+						{state.logged ? (
+							<>
+								<Dropdown.Item href="/settings">Editar perfil</Dropdown.Item>
+								<Dropdown.Item href="#" onClick={logout}>Cerrar sesión</Dropdown.Item>
+							</>
+						) : (
+							<>
+								<Dropdown.Item href="/login">Iniciar sesión</Dropdown.Item>
+								<Dropdown.Item href="/register">Registro</Dropdown.Item>
+							</>
+						)}
 					</NavDropdown>
 				</nav>
 			</Container>
