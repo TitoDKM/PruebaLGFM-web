@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { appContext } from "../..";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
-import { ERROR, REGISTER, SET_CATEGORY, TOKEN } from "../../reducers/AppReducer";
+import { ERROR, LOGOUT, REGISTER, SET_CATEGORY, TOKEN } from "../../reducers/AppReducer";
 import { register } from "../../services/formsService";
 import { getPosts } from "../../services/postsService";
 
@@ -30,15 +30,13 @@ const Register = () => {
 		register(email.current.value, password.current.value, password2.current.value, name.current.value, surname.current.value, location.current.value)
 		.then(response => {
 			localStorage.setItem("loginData", JSON.stringify({token: response.data.token, email: email.current.value}));
-			dispatch({type: TOKEN, token: response.data.token});
+			dispatch({type: TOKEN, token: response.data.token, email: email.current.value});
 			navigate("/", {replace: true});
 		})
 		.catch(error => {
-			if(error.response && error.response.status === 400) {
-				if(error.response && error.response.status === 400)
-					setError(error.response.data.message);
-				dispatch({type: ERROR});
-			}
+			dispatch({type: ERROR});
+			if(error.response && error.response.status === 400) setError(error.response.data.message);
+			if(error.response && error.response.status === 403) dispatch({type: LOGOUT});
 		})
 	}
 

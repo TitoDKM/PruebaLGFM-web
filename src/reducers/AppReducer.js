@@ -12,6 +12,7 @@ export const INITIAL_STATE = {
 	login_data: loginData !== "" ? loginData : null,
 	logged: loginData !== "" ? true : false,
 	token: loginData !== "" ? loginData.token : "",
+	email: loginData !== "" ? loginData.email : "",
 	loading: false,
 	current_category: 0
 }
@@ -33,9 +34,11 @@ export const AppReducer = (state, action) => {
 				...state,
 				loading: false,
 				logged: true,
-				token: action.token
+				token: action.token,
+				email: action.email
 			}
 		case LOGOUT:
+			localStorage.removeItem("loginData");
 			return {
 				...state,
 				logged: false,

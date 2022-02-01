@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { appContext } from "../..";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
-import { ERROR, LOGIN, SET_CATEGORY, TOKEN } from "../../reducers/AppReducer";
+import { ERROR, LOGIN, LOGOUT, SET_CATEGORY, TOKEN } from "../../reducers/AppReducer";
 import { login } from "../../services/formsService";
 import { getPosts } from "../../services/postsService";
 
@@ -25,13 +25,13 @@ const Login = () => {
 		login(email.current.value, password.current.value)
 		.then(response => {
 			localStorage.setItem("loginData", JSON.stringify({token: response.data.token, email: email.current.value}));
-			dispatch({type: TOKEN, token: response.data.token});
+			dispatch({type: TOKEN, token: response.data.token, email: email.current.value});
 			navigate("/", {replace: true});
 		})
 		.catch(error => {
-			if(error.response && error.response.status === 400)
-				setError(error.response.data.message);
 			dispatch({type: ERROR});
+			if(error.response && error.response.status === 400) setError(error.response.data.message);
+			if(error.response && error.response.status === 403) dispatch({type: LOGOUT});
 		});
 	}
 
