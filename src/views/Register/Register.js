@@ -49,7 +49,7 @@ const Register = () => {
 						{error && (<Alert variant="danger" className="mt-3">{error}</Alert>)}
 						<div className="form-container">
 							<div className="form-header">
-								<h3 className="selected">Crear nueva cuenta</h3>
+								<h3>Crear nueva cuenta</h3>
 							</div>
 							<div className="form-content">
 								<Form>

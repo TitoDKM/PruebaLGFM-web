@@ -17,3 +17,19 @@ export const register = (email, password, password2, name, surname, location) =>
 		location
 	});
 }
+
+export const createPost = (email, token, title, category, comments, image, body) => {
+	return axios.post('http://localhost:8080/api/posts/create', {
+		email,
+		title,
+		category,
+		comments,
+		image,
+		body
+	},
+	{
+		headers: {
+			'Authorization': 'Bearer ' + token
+		}
+	});
+}

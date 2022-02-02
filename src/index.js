@@ -10,6 +10,7 @@ import Category from './views/Category/Category';
 import Login from './views/Login/Login';
 import Register from './views/Register/Register';
 import Settings from './views/Settings/Settings';
+import Create from './views/Create/Create';
 
 export const appContext = React.createContext([]);
 
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/login" element={state.logged ? <Navigate to="/" /> : <Login />} />
           <Route path="/register" element={state.logged ? <Navigate to="/" /> : <Register />} />
           <Route path="/settings" element={!state.logged ? <Navigate to="/" /> : <Settings />} />
+          <Route path="/create" element={!state.logged ? <Navigate to="/" /> : <Create />} />
           <Route path="*" element={<h1>Página no encontrada</h1>} />
         </Routes>
       </BrowserRouter>

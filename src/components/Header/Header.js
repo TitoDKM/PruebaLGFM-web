@@ -3,14 +3,13 @@ import { Container, NavDropdown, Dropdown, InputGroup, SplitButton, Button } fro
 import { Plus, PlusLg, Search } from 'react-bootstrap-icons';
 import { useNavigate } from "react-router-dom";
 import { appContext } from "../..";
-import { LOAD_CATS, LOGOUT } from "../../reducers/AppReducer";
+import { LOAD_CATS, LOGOUT, SET_CATS } from "../../reducers/AppReducer";
 import { getCats } from "../../services/catsService";
 
 import './header.css';
 
 const Header = () => {
 	const {state, dispatch} = useContext(appContext);
-	const [cats, setCats] = useState([]);
 	let navigate = useNavigate();
 
 	useEffect(() => {
@@ -18,7 +17,7 @@ const Header = () => {
 
 		getCats()
 		.then(response => {
-			setCats(response.data);
+			dispatch({type: SET_CATS, cats: response.data});
 		})
 		.catch(error => console.log(error));
 	}, []);
@@ -61,15 +60,15 @@ const Header = () => {
 				<nav className="navbar navbar-expand-lg header-menu-container">
 					<InputGroup className="w-auto">
 						<SplitButton variant="cats" title="Categorías" id="filter-button">
-							{cats.length > 0 ? cats.map(cat => <Dropdown.Item key={cat.id} onClick={() => navigate("/category/" + cat.id)}>{cat.title}</Dropdown.Item>) : <Dropdown.Item>Aún no hay categorías</Dropdown.Item>}
+							{state.cats.length > 0 ? state.cats.map(cat => <Dropdown.Item key={cat.id} onClick={() => navigate("/category/" + cat.id)}>{cat.title}</Dropdown.Item>) : <Dropdown.Item>Aún no hay categorías</Dropdown.Item>}
 						</SplitButton>
 					</InputGroup>
 					<ul className="navbar-nav header-navbar-items">
-						{cats.length > 0 ? cats.filter(cat => cat.featured).map(cat => <li key={cat.id} className={"nav-item cursor-pointer" + (cat.id == state.current_category ? ' selected' : '')} onClick={() => navigate("/category/" + cat.id, {replace: true})}>{cat.title}</li>) : <li className="nav-item">Aún no hay categorías</li>}
+						{state.cats.length > 0 ? state.cats.filter(cat => cat.featured).map(cat => <li key={cat.id} className={"nav-item cursor-pointer" + (cat.id == state.current_category ? ' selected' : '')} onClick={() => navigate("/category/" + cat.id, {replace: true})}>{cat.title}</li>) : <li className="nav-item">Aún no hay categorías</li>}
 					</ul>
-					<ul className="navbar-nav ms-auto">
-						<Button variant="none" className="newpost-btn"><PlusLg /></Button>
-					</ul>
+					{state.logged && (<ul className="navbar-nav ms-auto">
+						<Button variant="none" className="newpost-btn" onClick={() => navigate("/create")}><PlusLg /></Button>
+					</ul>)}
 				</nav>
 			</Container>
 		</>

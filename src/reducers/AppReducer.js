@@ -5,6 +5,7 @@ export const LOGOUT = 'LOGOUT';
 export const SET_CATEGORY = 'SET_CATEGORY';
 export const ERROR = 'ERROR';
 export const REGISTER = 'REGISTER';
+export const SET_CATS = 'SET_CATS';
 
 const loginData = localStorage.getItem("loginData") ? JSON.parse(localStorage.getItem("loginData")) : "";
 
@@ -14,7 +15,8 @@ export const INITIAL_STATE = {
 	token: loginData !== "" ? loginData.token : "",
 	email: loginData !== "" ? loginData.email : "",
 	loading: false,
-	current_category: 0
+	current_category: 0,
+	cats: []
 }
 
 export const AppReducer = (state, action) => {
@@ -28,6 +30,11 @@ export const AppReducer = (state, action) => {
 		case LOAD_CATS:
 			return {
 				...state
+			}
+		case SET_CATS:
+			return {
+				...state,
+				cats: action.cats
 			}
 		case TOKEN:
 			return {

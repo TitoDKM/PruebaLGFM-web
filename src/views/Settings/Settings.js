@@ -58,7 +58,7 @@ const Settings = () => {
 						{success && (<Alert className="mt-3" variant="success">{success}</Alert>)}
 						<div className="form-container">
 							<div className="form-header">
-								<h3 className="selected">Mi perfil</h3>
+								<h3>Mi perfil</h3>
 							</div>
 							<div className="form-content">
 								<Form>

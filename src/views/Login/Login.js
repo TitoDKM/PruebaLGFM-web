@@ -44,7 +44,7 @@ const Login = () => {
 						{error && (<Alert className="mt-3" variant="danger">{error}</Alert>)}
 						<div className="form-container">
 							<div className="form-header">
-								<h3 className="selected">Inicio de sesión</h3>
+								<h3>Inicio de sesión</h3>
 							</div>
 							<div className="form-content">
 								<Form>
