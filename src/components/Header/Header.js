@@ -1,7 +1,7 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Container, NavDropdown, Dropdown, InputGroup, SplitButton, Button } from "react-bootstrap";
 import { Plus, PlusLg, Search } from 'react-bootstrap-icons';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import { appContext } from "../..";
 import { LOAD_CATS, LOGOUT, SET_CATS } from "../../reducers/AppReducer";
 import { getCats } from "../../services/catsService";
@@ -11,6 +11,7 @@ import './header.css';
 const Header = () => {
 	const {state, dispatch} = useContext(appContext);
 	let navigate = useNavigate();
+	const searchInput = useRef();
 
 	useEffect(() => {
 		dispatch({type: LOAD_CATS});
@@ -28,18 +29,24 @@ const Header = () => {
 		navigate("/", {replace: true});
 	}
 
+	const trySearch = (e) => {
+		if(e.charCode === 13) {
+			window.location.href = "/search?search=" + searchInput.current.value;
+		}
+	}
+
 	return (
 		<>
 			<Container className="header-navbar" fluid>
 				<nav className="navbar header">
 					<a className="navbar-brand mr-auto" href="/"><img src="/logo_dblog.png" alt="dBlog" /></a>
 					<div className="header-search">
-						<input className="search-input" type="text" placeholder="Busca lo que necesitas" />
+						<input className="search-input" type="text" placeholder="Busca lo que necesitas" onKeyPress={trySearch} ref={searchInput} />
 						<Search className="search-icon" />
 					</div>
 					<NavDropdown title={
 						<div className="pull-left">
-							<img src="/default.jpeg" alt="profilePhoto" className="user-photo" height={25} />
+							<img src={state.logged ? state.photo : "default.jpeg"} alt="profilePhoto" className="user-photo" height={25} />
 						</div>
 					}>
 						{state.logged ? (

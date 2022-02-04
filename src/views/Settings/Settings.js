@@ -1,3 +1,4 @@
+import { Dropzone, FileItem } from "@dropzone-ui/react";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Alert, Button, Card, Col, Form, Row } from "react-bootstrap";
 import { ThreeDots } from "react-bootstrap-icons";
@@ -15,11 +16,20 @@ const Settings = () => {
 	const [error, setError] = useState('');
 	const [success, setSuccess] = useState('');
 	const [myData, setMyData] = useState({});
+	const [files, setFiles] = useState([]);
 	const firstname = useRef();
 	const lastname = useRef();
 	const location = useRef();
 	const phone = useRef();
 	const biography = useRef();
+
+	const updateFiles = (incomingFiles) => {
+		setFiles(incomingFiles);
+	}
+
+	const onDelete = (id) => {
+		setFiles(files.filter(x => x.id !== id));
+	}
 
 	useEffect(() => {
 		setMyData({});
@@ -40,7 +50,7 @@ const Settings = () => {
 		setSuccess('');
 		setError('');
 
-		saveUserData(state.email, state.token, firstname.current.value, lastname.current.value, phone.current.value, location.current.value, biography.current.value)
+		saveUserData(state.email, state.token, firstname.current.value, lastname.current.value, phone.current.value, location.current.value, biography.current.value, files[0] ? files[0].uploadMessage : "")
 		.then(response => setSuccess('Cambios guardados correctamente'))
 		.catch(error => {
 			if(error.response && error.response.status === 400) setError(error.response.data.message);
@@ -82,6 +92,28 @@ const Settings = () => {
 													<Form.Text className="text-muted">
 														<em>Opcional. Precisión según privacidad personal</em>
 													</Form.Text>
+												</Form.Group>
+												<Form.Group className="mt-3">
+													<Form.Label>Foto de perfil</Form.Label><br />
+													<Form.Text className="text-muted">
+														<em>Se mantendrá la actual si no subes ninguna</em>
+													</Form.Text>
+													<Dropzone
+														onChange={updateFiles}
+														value={files}
+														onClean
+														maxFiles={1}
+														accept={"image/*"}
+														label={"Arrastra una imagen o haz click para seleccionarla"}
+														minHeight={"100px"}
+														maxHeight={"100px"}
+														localization={"ES-es"}
+														url={"http://localhost:8080/api/files/upload"}
+														uploadOnDrop
+														disableScroll
+													>
+														{files.map(file => (<FileItem {...file} id={file.id} onDelete={onDelete} alwaysActive localization={"ES-es"} preview info resultOnTooltip />))}
+													</Dropzone>
 												</Form.Group>
 											</Col>
 											<Col>

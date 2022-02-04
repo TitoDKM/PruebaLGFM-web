@@ -1,0 +1,11 @@
+.comment-photo img {
+	height: 50px;
+}
+
+.comment-content {
+	margin-left: 15px;
+}
+
+.comment-author {
+	font-weight: bold;
+}

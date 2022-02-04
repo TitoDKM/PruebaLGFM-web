@@ -24,8 +24,8 @@ const Login = () => {
 		dispatch({type: LOGIN});
 		login(email.current.value, password.current.value)
 		.then(response => {
-			localStorage.setItem("loginData", JSON.stringify({token: response.data.token, email: email.current.value}));
-			dispatch({type: TOKEN, token: response.data.token, email: email.current.value});
+			localStorage.setItem("loginData", JSON.stringify({token: response.data.token, id: response.data.id, email: response.data.email, photo: response.data.photo}));
+			dispatch({type: TOKEN, token: response.data.token, email: response.data.email, photo: response.data.photo, id: response.data.id});
 			navigate("/", {replace: true});
 		})
 		.catch(error => {

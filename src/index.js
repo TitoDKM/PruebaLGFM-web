@@ -11,6 +11,8 @@ import Login from './views/Login/Login';
 import Register from './views/Register/Register';
 import Settings from './views/Settings/Settings';
 import Create from './views/Create/Create';
+import Edit from './views/Edit/Edit';
+import Search from './views/Search/Search';
 
 export const appContext = React.createContext([]);
 
@@ -28,6 +30,8 @@ const App = () => {
           <Route path="/register" element={state.logged ? <Navigate to="/" /> : <Register />} />
           <Route path="/settings" element={!state.logged ? <Navigate to="/" /> : <Settings />} />
           <Route path="/create" element={!state.logged ? <Navigate to="/" /> : <Create />} />
+          <Route path="/edit/:id" element={!state.logged ? <Navigate to="/" /> : <Edit />} />
+          <Route path="/search" element={<Search />} />
           <Route path="*" element={<h1>Página no encontrada</h1>} />
         </Routes>
       </BrowserRouter>
